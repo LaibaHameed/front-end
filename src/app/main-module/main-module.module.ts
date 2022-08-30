@@ -14,6 +14,7 @@ import { CheckoutComponent } from './main-components/checkout/checkout.component
 import { EditCardComponent } from './main-components/edit-card/edit-card.component';
 import { PurchaseSuccessfulComponent } from './main-components/purchase-successful/purchase-successful.component';
 import { PurchaseFailedComponent } from './main-components/purchase-failed/purchase-failed.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { PurchaseFailedComponent } from './main-components/purchase-failed/purch
   ],
   imports: [
     CommonModule,
-    MainModuleRoutingModule
+    MainModuleRoutingModule,
+    FontAwesomeModule
   ]
 })
 export class MainModuleModule { }
