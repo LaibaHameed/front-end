@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './admin-components/dashboard/dashboard.component';
 import { ProductsComponent } from './admin-components/products/products.component';
+import { SettingsComponent } from './admin-components/settings/settings.component';
 import { AdminModuleComponent } from './admin-module.component';
 
 const routes: Routes = [{
@@ -9,7 +10,8 @@ const routes: Routes = [{
    children:[
     {path:'', component:DashboardComponent},
     {path:'dash-board', component:DashboardComponent},
-    {path:'products', component:ProductsComponent}
+    {path:'products', component:ProductsComponent},
+    {path:'settings', component:SettingsComponent}
   ]
 }];
 

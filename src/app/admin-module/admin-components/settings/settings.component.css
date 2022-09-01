@@ -166,52 +166,10 @@ img {
 }
 
 .button:hover,
- .button:focus {
+.button:focus {
   border-color:  #434ce8;
   color:  #434ce8;
 }
-
-.header-content > .button {
-  font: inherit;
-  color: inherit;
-  text-decoration: none;
-  display: inline-flex;
-  /* display: none; */
-  align-items: center;
-  justify-content: center;
-  padding: 0 1em;
-  height: 40px;
-  border-radius: 8px;
-  line-height: 1;
-  border: 2px solid #eff1f6;
-  color:  #404089;
-  font-size: 0.875rem;
-  transition: 0.15s ease;
-  background-color: #ffffff;
-}
-
-@media (min-width: 1200px) {
-  .header-content > .button{
-    visibility: hidden;
-    }
-}
-
-.header-content > .button>i {
-  margin-right: 0.5rem;
-  font-size: 1.25em;
-}
-
-.header-content > .button>span {
-  font-weight: 500;
-}
-
-.header-content > .button:hover,
-.header-content > .button:focus {
-  border-color:  #434ce8;
-  color:  #434ce8;
-}
-
-
 
 .icon-button {
   font: inherit;
