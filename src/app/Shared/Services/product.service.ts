@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http'
 })
 export class ProductService {
 
-  URL = 'http://localhost:8888/'
+  URL = 'http://localhost: 9999/'
 
   constructor( private HttpClient:HttpClient) { }
 
   CreateProductCard(payload:any){
     // this.HttpClient.post(this.URL,payload)
-    this.HttpClient.post('http://localhost:8888/',payload)
+   return this.HttpClient.post('http://localhost:9999/ProductManagement/ProductData',payload)
     // 1:43
   }
 }

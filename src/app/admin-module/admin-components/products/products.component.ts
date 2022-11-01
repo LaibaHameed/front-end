@@ -7,7 +7,7 @@ import {
   FormArray,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-// import { ProductService } from 'src/app/Shared/Services/product.service';
+import { ProductService } from 'src/app/Shared/Services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -27,14 +27,14 @@ export class ProductsComponent implements OnInit {
   constructor(
     private FormBuilder: FormBuilder,
     private ToasterService: ToastrService,
-    // private ProductService: ProductService
+    private ProductService: ProductService
   ) {
     this.ProductFormModel();
   }
 
   ngOnInit(): void {}
 
-  ProductFormModel() {
+  ProductFormModel() { // build form
     this.ProductForm = this.FormBuilder.group({
       productName: new FormControl('', [
         Validators.required,
@@ -79,26 +79,37 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  // GetImages(event: any) {
+  //   console.log(this.FileSelect.nativeElement);
+
+  //   console.log(event.target.files);
+  //   if (event.target.files.length <= 5) {
+  //     this.ImageArray.push(event.target.files);
+  //   } else {
+  //     this.ImageArray = [];
+  //     this.DisableButtonTrue = true;
+  //     this.FileSelect.nativeElement.value = null;
+  //     this.ToasterService.warning(
+  //       `Image selection limit is 5 but you have selected more than`
+  //     );
+  //   }
+  // }
   GetImages(event: any) {
     console.log(this.FileSelect.nativeElement);
-
     console.log(event.target.files);
     if (event.target.files.length <= 5) {
       this.ImageArray.push(event.target.files);
     } else {
       this.ImageArray = [];
+      this.FileSelect.nativeElement.value= null;
       this.DisableButtonTrue = true;
-      this.FileSelect.nativeElement.value = null;
-      this.ToasterService.warning(
-        `Image selection limit is 5 but you have selected ${event.target.files.length}`
-      );
+      this.ToasterService.warning(`Image selection limit is 5 but you have selected ${event.target.files.length}`);
     }
   }
 
-  CreatProduct() {
-    // submitProductForm()
+  CreatProduct() {     // submitProductForm()
     // getter function **angular mai hm getter or setter funs use krty hai  cheezo ko get or set krny k liye(it is used for get and set things)
-    // console.log(this.ProductForm.get('productName').setValue('sir g bhut bare gappi hain'));
+    // console.log(this.ProductForm.get('productName').setValue('sir g bhut bare hain'));
     // console.log(this.ProductForm.get('productName').value);
 
     this.NewSizeArray.forEach((elements: string) => {
@@ -126,5 +137,10 @@ export class ProductsComponent implements OnInit {
     // 1:30
     let result = this.ProductForm.value;
     console.log(result);
-  }
-}
+
+    this.ProductService.CreateProductCard(MultipartFormData).subscribe((ResponseComingFromBackend:any) => {
+      console.log(ResponseComingFromBackend);
+    });
+  };
+
+};
