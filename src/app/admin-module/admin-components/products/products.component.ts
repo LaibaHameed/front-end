@@ -7,6 +7,7 @@ import {
   FormArray,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+// import { ProductService } from 'src/app/Shared/Services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +16,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductsComponent implements OnInit {
   @ViewChild('FileSelect') FileSelect: ElementRef | any;
-
 
   SelectSizes = ['Small', 'Medium', 'Large', 'X-Large', 'XX-Large'];
   SelectCategory = ['Women', 'Men'];
@@ -26,7 +26,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private FormBuilder: FormBuilder,
-    private ToasterService: ToastrService
+    private ToasterService: ToastrService,
+    // private ProductService: ProductService
   ) {
     this.ProductFormModel();
   }
@@ -81,26 +82,28 @@ export class ProductsComponent implements OnInit {
   GetImages(event: any) {
     console.log(this.FileSelect.nativeElement);
 
-
     console.log(event.target.files);
-    if(event.target.files.length <= 5){
+    if (event.target.files.length <= 5) {
       this.ImageArray.push(event.target.files);
-    }else{
+    } else {
       this.ImageArray = [];
       this.DisableButtonTrue = true;
-      this.FileSelect.nativeElement.value=null;
-      this.ToasterService.warning(`image selection limit is 5 but you selected more than 5 images`)
+      this.FileSelect.nativeElement.value = null;
+      this.ToasterService.warning(
+        `Image selection limit is 5 but you have selected ${event.target.files.length}`
+      );
     }
   }
 
   CreatProduct() {
+    // submitProductForm()
     // getter function **angular mai hm getter or setter funs use krty hai  cheezo ko get or set krny k liye(it is used for get and set things)
     // console.log(this.ProductForm.get('productName').setValue('sir g bhut bare gappi hain'));
     // console.log(this.ProductForm.get('productName').value);
 
     this.NewSizeArray.forEach((elements: string) => {
       let controls = new FormControl(elements);
-      this.ProductForm.get('size').push(controls);  // controls mean formControl
+      this.ProductForm.get('size').push(controls); // controls mean formControl
     });
 
     this.ImageArray.forEach((elements: any) => {
@@ -109,18 +112,19 @@ export class ProductsComponent implements OnInit {
     });
 
     let MultipartFormData = new FormData();
-    MultipartFormData.append('productName', this.ProductForm.get('productName').value);
+    MultipartFormData.append('productName',this.ProductForm.get('productName').value);
     MultipartFormData.append('price', this.ProductForm.get('price').value);
-    MultipartFormData.append('quantity', this.ProductForm.get('quantity').value);
+    MultipartFormData.append('quantity',this.ProductForm.get('quantity').value);
     MultipartFormData.append('color', this.ProductForm.get('color').value);
-    MultipartFormData.append('productMaterial', this.ProductForm.get('productMaterial').value);
-    MultipartFormData.append('companyName', this.ProductForm.get('companyName').value);
-    MultipartFormData.append('imageName', this.ProductForm.get('imageName').value);
+    MultipartFormData.append('productMaterial',this.ProductForm.get('productMaterial').value);
+    MultipartFormData.append('companyName',this.ProductForm.get('companyName').value);
+    MultipartFormData.append('imageName',this.ProductForm.get('imageName').value);
     MultipartFormData.append('image', this.ProductForm.get('image').value);
-    MultipartFormData.append('description', this.ProductForm.get('description').value);
-    MultipartFormData.append('category', this.ProductForm.get('category').value);
+    MultipartFormData.append('description',this.ProductForm.get('description').value);
+    MultipartFormData.append('category',this.ProductForm.get('category').value);
     MultipartFormData.append('size', this.ProductForm.get('size').value);
     // 1:30
-
+    let result = this.ProductForm.value;
+    console.log(result);
   }
 }
