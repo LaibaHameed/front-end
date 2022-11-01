@@ -1,0 +1,12 @@
+label{
+  font-weight: 600 !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/** sir code */

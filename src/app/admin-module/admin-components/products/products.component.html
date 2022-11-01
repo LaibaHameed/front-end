@@ -1,1 +1,62 @@
-<p>products works!</p>
+<div class="container mt-5">
+  <h2 class="text-center mb-5">Create Product card</h2>
+  <form [formGroup]="ProductForm" (ngSubmit)="CreatProduct()">
+  <div class="row g-3" >
+    <div class="form-floating mb-3 col-lg-4 col-md-6">
+      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="productName">
+      <label for="floatingInput">Product Name</label>
+    </div>
+    <div class="form-floating col-lg-4 col-md-6">
+      <input type="number" class="form-control" id="floatingPassword" placeholder="Password" formControlName="price">
+      <label for="floatingPassword">Price</label>
+    </div>
+    <div class="form-floating col-lg-4 col-md-6">
+      <input type="number" class="form-control" id="floatingPassword" placeholder="Password" formControlName="quantity">
+      <label for="floatingPassword">Quantity</label>
+    </div>
+    <div class="form-floating col-lg-4 col-md-6">
+      <input type="text" class="form-control" id="floatingPassword" placeholder="Password" formControlName="color">
+      <label for="floatingPassword">Add Colors</label>
+    </div>
+    <div class="form-floating col-lg-4 col-md-6">
+      <input type="text" class="form-control" id="floatingPassword" placeholder="Password" formControlName="productMaterial">
+      <label for="floatingPassword">Product Matrial</label>
+    </div>
+    <div class="form-floating col-lg-4 col-md-6">
+      <input type="text" class="form-control" id="floatingPassword" placeholder="Password" formControlName="companyName">
+      <label for="floatingPassword">Company Name</label>
+    </div>
+    <div class="form-floating col-lg-4 col-md-6">
+      <input type="text" class="form-control" id="floatingPassword" placeholder="Password" formControlName="imageName">
+      <label for="floatingPassword">Image Name</label>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <label for="floatingPassword">Choose Image</label>
+      <input #FileSelect type="file" class="form-control" placeholder="Password" multiple (change)="GetImages($event)">
+    </div>
+    <div class="form-floating col-lg-4 col-md-6">
+      <input type="text" class="form-control" id="floatingPassword" placeholder="Password" formControlName="description">
+      <label for="floatingPassword">Discription</label>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <label for="floatingPassword">Select Category</label>
+      <select class="form-select" aria-label="Default select example" formControlName="category">
+        <option *ngFor="let item of SelectCategory" [value]="item">{{item}}</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <label for="floatingPassword">Select Sizes</label>
+      <br>
+      <ng-container *ngFor="let data of SelectSizes" >
+        <input type="checkbox" class="form-check-input" [value]="data" [id]="data" (click)="GetSizes($event)"/>
+        <label class="form-check-label mx-2" [for]="data">
+          {{data}}
+        </label>
+      </ng-container>
+    </div>
+     <div class="col-lg-4 col-md-6">
+      <button class="btn btn-primary my-4" type="submit">Upload</button>
+     </div>
+  </div>
+</form>
+</div>
