@@ -15,4 +15,8 @@ export class ProductService {
    return this.HttpClient.post('http://localhost:9999/ProductManagement/ProductData',payload)
     // 1:43
   }
+
+  GetAllProducts(){
+    return this.HttpClient.get('http://localhost:9999/ProductManagement/GetProductData')
+  }
 }
