@@ -121,6 +121,8 @@ export class ProductsComponent implements OnInit {
     MultipartFormData.append('category', this.ProductForm.get('category').value);
     MultipartFormData.append('size', this.ProductForm.get('size').value);
     // 1:30
+    let result = this.ProductForm.value;
+    console.log(result);
 
   }
 }
