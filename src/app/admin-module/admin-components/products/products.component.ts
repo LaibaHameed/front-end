@@ -62,7 +62,7 @@ export class ProductsComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^[A-Za-z]+$/),
       ]),
-      image: new FormArray([]),
+      // image: new FormArray([]),
       description: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required),
       size: new FormArray([]),
@@ -95,15 +95,15 @@ export class ProductsComponent implements OnInit {
   //   }
   // }
   GetImages(event: any) {
-    console.log(this.FileSelect.nativeElement);
-    console.log(event.target.files);
+    let FilesLength = event.target.files.length;
     if (event.target.files.length <= 5) {
-      this.ImageArray.push(event.target.files);
+      [...event.target.files].forEach(File => this.ImageArray.push(File));
+      this.DisableButtonTrue = false;
     } else {
       this.ImageArray = [];
       this.FileSelect.nativeElement.value= null;
       this.DisableButtonTrue = true;
-      this.ToasterService.warning(`Image selection limit is 5 but you have selected ${event.target.files.length}`);
+      this.ToasterService.warning(`Image selection limit is 5 but you have selected ${FilesLength}`);
     }
   }
 
@@ -113,14 +113,14 @@ export class ProductsComponent implements OnInit {
     // console.log(this.ProductForm.get('productName').value);
 
     this.NewSizeArray.forEach((elements: string) => {
-      let controls = new FormControl(elements);
-      this.ProductForm.get('size').push(controls); // controls mean formControl
+      let controls = new FormControl(elements);  // controls mean formControl
+      this.ProductForm.get('size').push(controls);
     });
 
-    this.ImageArray.forEach((elements: any) => {
-      let controls = new FormControl(elements);
-      this.ProductForm.get('image').push(controls); // controls mean formControl
-    });
+    // this.ImageArray.forEach((elements: any) => {
+    //   let controls = new FormControl(elements);
+    //   this.ProductForm.get('image').push(controls); // controls mean formControl
+    // });
 
     let MultipartFormData = new FormData();
     MultipartFormData.append('productName',this.ProductForm.get('productName').value);
@@ -130,17 +130,21 @@ export class ProductsComponent implements OnInit {
     MultipartFormData.append('productMaterial',this.ProductForm.get('productMaterial').value);
     MultipartFormData.append('companyName',this.ProductForm.get('companyName').value);
     MultipartFormData.append('imageName',this.ProductForm.get('imageName').value);
-    MultipartFormData.append('image', this.ProductForm.get('image').value);
+    // MultipartFormData.append('image', this.ProductForm.get('image').value);
     MultipartFormData.append('description',this.ProductForm.get('description').value);
     MultipartFormData.append('category',this.ProductForm.get('category').value);
     MultipartFormData.append('size', this.ProductForm.get('size').value);
-    // 1:30
-    let result = this.ProductForm.value;
-    console.log(result);
+    this.ImageArray.forEach((ImagesData: any) => {
+      MultipartFormData.append('image', ImagesData); //Appending values to the getData varibale from FormGroup
+    })
 
     this.ProductService.CreateProductCard(MultipartFormData).subscribe((ResponseComingFromBackend:any) => {
-      console.log(ResponseComingFromBackend);
+      this.ToasterService.success(ResponseComingFromBackend.Message);
+      this.ProductForm.reset();
+      this.FileSelect.nativeElement.value = null;
+      // console.log(ResponseComingFromBackend);
     });
   };
 
 };
+

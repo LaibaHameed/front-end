@@ -13,7 +13,6 @@ export class ProductService {
   CreateProductCard(payload:any){
     // this.HttpClient.post(this.URL,payload)
    return this.HttpClient.post('http://localhost:9999/ProductManagement/ProductData',payload)
-    // 1:43
   }
 
   GetAllProducts(){
